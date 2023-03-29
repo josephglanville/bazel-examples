@@ -61,6 +61,7 @@ jobs:
           - 'go_workspaces'
           - 'jest'
           - 'oci_go_image'
+          - 'oci_java_image'
           - 'nestjs'
           - 'next.js'
           - 'pnpm-workspaces'
