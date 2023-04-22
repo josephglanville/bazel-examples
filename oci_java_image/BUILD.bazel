@@ -4,9 +4,7 @@ load("@rules_pkg//:pkg.bzl", "pkg_tar")
 pkg_tar(
     name = "tar",
     # Bring the java_binary
-    srcs = ["//src/main/java/com/example:JavaLoggingClient"],
-    include_runfiles = True,
-    strip_prefix = ".",
+    srcs = ["//src/main/java/com/example:JavaLoggingClient_deploy.jar"],
 )
 
 oci_image(
@@ -16,7 +14,7 @@ oci_image(
         "@platforms//cpu:x86_64": "amd64",
     }),
     base = "@distroless_java",
-    entrypoint = ["/src/main/java/com/example/JavaLoggingClient"],
+    entrypoint = ["java", "-jar", "/JavaLoggingClient_deploy.jar"],
     os = "linux",
     tars = [":tar"],
 )
@@ -36,6 +34,6 @@ oci_tarball(
 
 structure_test(
     name = "test",
-    config = ["test.yaml"],
+    configs = ["test.yaml"],
     image = ":image",
 )
